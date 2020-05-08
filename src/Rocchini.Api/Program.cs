@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Rocchini.Common.Events;
+using Rocchini.Common.Service;
 using System.Threading.Tasks;
 
 namespace Rocchini.Api
@@ -8,14 +10,12 @@ namespace Rocchini.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            ServiceHost.Create<Startup>(args)
+                .UserRabbitMq()
+                .SubscribeToEvent<ActivityCreated>()
+                .Build()
+                .Run();
         }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+  
     }
 }

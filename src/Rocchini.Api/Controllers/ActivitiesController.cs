@@ -3,14 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RawRabbit;
+using Rocchini.Common.Commands;
 
 namespace Rocchini.Api.Controllers
 {
+    [Route("[controller]")]
     public class ActivitiesController : Controller
     {
-        public IActionResult Index()
+        private readonly IBusClient _busClient;
+
+        public ActivitiesController(IBusClient busClient)
         {
-            return View();
+            _busClient = busClient;
+        }
+
+        [HttpPost("")]
+        public async Task<IActionResult> Post([FromBody] CreateActivity command)
+        {
+            command.Id = Guid.NewGuid();
+            command.CreatedAt = DateTime.UtcNow;
+            await _busClient.PublishAsync(command);
+            return Accepted($"activities/{command.Id}");
         }
     }
 }

@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rocchini.Common.Commands;
+using Rocchini.Common.Commands.Interfaces;
+using Rocchini.Common.Events.Interfaces;
+using Rocchini.Common.RabbitMq;
+using Rocchini.Services.Activities.Handlers;
 
 namespace Rocchini.Services.Activities
 {
@@ -19,6 +24,8 @@ namespace Rocchini.Services.Activities
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddRabbitMq(Configuration);
+            services.AddSingleton<ICommandHandler<CreateActivity>, CreateActivityHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -28,8 +35,6 @@ namespace Rocchini.Services.Activities
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
