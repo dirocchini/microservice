@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Rocchini.Common
+﻿namespace Rocchini.Common
 {
     public class Class1
     {

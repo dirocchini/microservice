@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Rocchini.Common.Commands.Interfaces;
 
 namespace Rocchini.Common.Commands
 {
