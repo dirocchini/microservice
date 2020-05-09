@@ -4,6 +4,7 @@ using Rocchini.Common.Commands;
 using Rocchini.Common.Commands.Interfaces;
 using Rocchini.Common.Events;
 using Rocchini.Common.Exceptions;
+using Rocchini.Services.Identity.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace Rocchini.Services.Identity.Handlers
     {
         private readonly IBusClient _busClient;
         private ILogger<CreateUserHandler> _logger;
+        private readonly IUserService _userService;
 
-        public CreateUserHandler(IBusClient busClient, ILogger<CreateUserHandler> logger)
+        public CreateUserHandler(IBusClient busClient, ILogger<CreateUserHandler> logger, IUserService userService)
         {
             _busClient = busClient;
             _logger = logger;
+            _userService = userService;
         }
 
         public async Task HandleAsync(CreateUser command)
@@ -28,8 +31,7 @@ namespace Rocchini.Services.Identity.Handlers
 
             try
             {
-                //await _userService.RegisterAsync(command.Name, command.Email, command.Password);
-                // Fire event by putting event into the queue.
+                await _userService.RegisterAsync(command.Name, command.Email, command.Password);
                 await _busClient.PublishAsync(new UserCreated(command.Email, command.Name));
             }
             catch (RocchiniException ex)

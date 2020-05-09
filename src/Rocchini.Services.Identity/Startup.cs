@@ -11,6 +11,7 @@ using Rocchini.Services.Identity.Domain.Repositories;
 using Rocchini.Services.Identity.Domain.Services;
 using Rocchini.Services.Identity.Handlers;
 using Rocchini.Services.Identity.Repositories;
+using Rocchini.Services.Identity.Services;
 
 namespace Rocchini.Services.Identity
 {
@@ -33,6 +34,7 @@ namespace Rocchini.Services.Identity
             services.AddSingleton<ICommandHandler<CreateUser>, CreateUserHandler>();
             services.AddScoped<IEncrypter, Encrypter>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
