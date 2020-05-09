@@ -10,3 +10,4 @@ namespace Rocchini.Services.Activities.Domain.Repositories
         Task AddAsync(Activity activity);
     }
 }
+  
