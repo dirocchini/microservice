@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Rocchini.Common.Mongo
+﻿namespace Rocchini.Common.Mongo
 {
     public class MongoOptions
     {

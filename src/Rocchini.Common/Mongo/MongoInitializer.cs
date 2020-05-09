@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rocchini.Common.Mongo
@@ -13,13 +11,15 @@ namespace Rocchini.Common.Mongo
         private bool _initialized;
         private readonly bool _seed;
         private readonly IMongoDatabase _database;
+        private readonly IDatabaseSeeder _databaseSeeder;
 
-        public MongoInitializer(IMongoDatabase database, IOptions<MongoOptions> options)
+        public MongoInitializer(IMongoDatabase database, IOptions<MongoOptions> options, IDatabaseSeeder databaseSeeder)
         {
             _database = database;
+            _databaseSeeder = databaseSeeder;
             _seed = options.Value.Seed;
         }
-        public async Task InitializerAsync()
+        public async Task InitializeAsync()
         {
             if (_initialized)
                 return;
@@ -29,6 +29,8 @@ namespace Rocchini.Common.Mongo
 
             if (!_seed)
                 return;
+
+            await _databaseSeeder.SeedAsync();
         }
 
         private void RegisterConventions()

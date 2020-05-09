@@ -7,7 +7,10 @@ using Rocchini.Common.Commands;
 using Rocchini.Common.Commands.Interfaces;
 using Rocchini.Common.Mongo;
 using Rocchini.Common.RabbitMq;
+using Rocchini.Services.Activities.Domain.Repositories;
 using Rocchini.Services.Activities.Handlers;
+using Rocchini.Services.Activities.Repositories;
+using Rocchini.Services.Activities.Services;
 
 namespace Rocchini.Services.Activities
 {
@@ -27,6 +30,9 @@ namespace Rocchini.Services.Activities
             services.AddMongoDb(Configuration);
             services.AddRabbitMq(Configuration);
             services.AddSingleton<ICommandHandler<CreateActivity>, CreateActivityHandler>();
+            services.AddScoped<IActivityRepository, ActivityRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IDatabaseSeeder, CustomMongoSeeder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +41,12 @@ namespace Rocchini.Services.Activities
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            //app.ApplicationServices.GetService<IDatabaseInitializer>().InitializerAsync();
+
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<IDatabaseInitializer>().InitializeAsync();
             }
 
             app.UseRouting();

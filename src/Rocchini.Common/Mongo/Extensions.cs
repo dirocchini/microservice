@@ -2,9 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Rocchini.Common.Mongo
 {
@@ -19,7 +16,7 @@ namespace Rocchini.Common.Mongo
                 var options = c.GetService<IOptions<MongoOptions>>();
                 return new MongoClient(options.Value.ConnectionString);
             });
-            services.AddScoped<IMongoDatabase>(c =>
+            services.AddSingleton<IMongoDatabase>(c =>
             {
                 var options = c.GetService<IOptions<MongoOptions>>();
                 var client = c.GetService<MongoClient>();
@@ -28,6 +25,7 @@ namespace Rocchini.Common.Mongo
             });
 
             services.AddScoped<IDatabaseInitializer, MongoInitializer>();
+            services.AddScoped<IDatabaseSeeder, MongoSeeder>();
         }
     }
 }

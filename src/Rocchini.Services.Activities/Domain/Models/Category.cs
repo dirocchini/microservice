@@ -12,7 +12,7 @@ namespace Rocchini.Services.Activities.Domain.Models
 
         }
 
-        public Category(Guid id, string name)
+        public Category(string name)
         {
             Id = Guid.NewGuid();
             Name = name.ToLowerInvariant();
