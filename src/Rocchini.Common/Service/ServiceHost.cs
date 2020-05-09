@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Rocchini.Common.RabbitMq;
 using Rocchini.Common.Service.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Rocchini.Common.Service
 {

@@ -2,13 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using RawRabbit;
 using RawRabbit.Instantiation;
-using RawRabbit.Pipe;
 using Rocchini.Common.Commands.Interfaces;
 using Rocchini.Common.Events.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rocchini.Common.RabbitMq

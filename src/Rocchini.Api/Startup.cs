@@ -7,7 +7,6 @@ using Rocchini.Api.Handlers;
 using Rocchini.Common.Events;
 using Rocchini.Common.Events.Interfaces;
 using Rocchini.Common.RabbitMq;
-using System;
 
 namespace Rocchini.Api
 {

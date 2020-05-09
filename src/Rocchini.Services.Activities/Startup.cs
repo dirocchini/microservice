@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Rocchini.Common.Commands;
 using Rocchini.Common.Commands.Interfaces;
-using Rocchini.Common.Events.Interfaces;
 using Rocchini.Common.RabbitMq;
 using Rocchini.Services.Activities.Handlers;
 
