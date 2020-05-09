@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rocchini.Common.Exceptions;
+using System;
 
 namespace Rocchini.Services.Activities.Domain.Models
 {
@@ -18,6 +19,9 @@ namespace Rocchini.Services.Activities.Domain.Models
 
         public Activity(Guid id, string name, Category category, string description, Guid userId, DateTime createdOn)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new RocchiniException("empty_activity_name", $"Activity name can not be empty");
+
             Id = id;
             Name = name;
             Category = category.Name;

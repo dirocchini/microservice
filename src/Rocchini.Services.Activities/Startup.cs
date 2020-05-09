@@ -11,6 +11,7 @@ using Rocchini.Services.Activities.Domain.Repositories;
 using Rocchini.Services.Activities.Handlers;
 using Rocchini.Services.Activities.Repositories;
 using Rocchini.Services.Activities.Services;
+using Rocchini.Services.Activities.Services.Interfaces;
 
 namespace Rocchini.Services.Activities
 {
@@ -33,6 +34,7 @@ namespace Rocchini.Services.Activities
             services.AddScoped<IActivityRepository, ActivityRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IDatabaseSeeder, CustomMongoSeeder>();
+            services.AddScoped<IActivityService, ActivityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
