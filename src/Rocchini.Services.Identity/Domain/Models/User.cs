@@ -1,4 +1,6 @@
-﻿using Rocchini.Common.Exceptions;
+﻿using Microsoft.AspNetCore.Server.IIS.Core;
+using Rocchini.Common.Exceptions;
+using Rocchini.Services.Identity.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +35,16 @@ namespace Rocchini.Services.Identity.Domain.Models
             Name = name;
             CreatedOn = DateTime.Now;
         }
+
+        public void SetPassword(string password, IEncrypter encrypter)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                throw new RocchiniException("empty_password", $"Password can not be empty");
+
+            Salt = encrypter.GetSalt();
+            Password = encrypter.GetHash(password, Salt);
+        }
+
+        public bool ValidatePassword(string password, IEncrypter encrypter) => Password.Equals(encrypter.GetHash(password, Salt));
     }
 }
