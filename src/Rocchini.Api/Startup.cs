@@ -25,6 +25,7 @@ namespace Rocchini.Api
             services.AddControllers();
             services.AddRabbitMq(Configuration);
             services.AddSingleton<IEventHandler<ActivityCreated>, ActivityCreatedHandler>();
+            services.AddSingleton<IEventHandler<UserCreated>, UserCreatedHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

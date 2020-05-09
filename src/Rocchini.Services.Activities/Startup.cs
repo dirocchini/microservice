@@ -28,13 +28,14 @@ namespace Rocchini.Services.Activities
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddLogging();
             services.AddMongoDb(Configuration);
             services.AddRabbitMq(Configuration);
             services.AddSingleton<ICommandHandler<CreateActivity>, CreateActivityHandler>();
-            services.AddScoped<IActivityRepository, ActivityRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IDatabaseSeeder, CustomMongoSeeder>();
-            services.AddScoped<IActivityService, ActivityService>();
+            services.AddSingleton<IActivityRepository, ActivityRepository>();
+            services.AddSingleton<ICategoryRepository, CategoryRepository>();
+            services.AddSingleton<IDatabaseSeeder, CustomMongoSeeder>();
+            services.AddSingleton<IActivityService, ActivityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

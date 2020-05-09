@@ -15,7 +15,7 @@ namespace Rocchini.Services.Identity.Handlers
     public class CreateUserHandler : ICommandHandler<CreateUser>
     {
         private readonly IBusClient _busClient;
-        private ILogger<CreateUserHandler> _logger;
+        private ILogger _logger;
         private readonly IUserService _userService;
 
         public CreateUserHandler(IBusClient busClient, ILogger<CreateUserHandler> logger, IUserService userService)
@@ -31,7 +31,7 @@ namespace Rocchini.Services.Identity.Handlers
 
             try
             {
-                await _userService.RegisterAsync(command.Name, command.Email, command.Password);
+                await _userService.RegisterAsync(command.Email, command.Password, command.Name);
                 await _busClient.PublishAsync(new UserCreated(command.Email, command.Name));
             }
             catch (RocchiniException ex)

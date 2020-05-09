@@ -32,9 +32,9 @@ namespace Rocchini.Services.Identity
             services.AddMongoDb(Configuration);
             services.AddRabbitMq(Configuration);
             services.AddSingleton<ICommandHandler<CreateUser>, CreateUserHandler>();
-            services.AddScoped<IEncrypter, Encrypter>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<IEncrypter, Encrypter>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

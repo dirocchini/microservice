@@ -10,6 +10,7 @@ namespace Rocchini.Api
             ServiceHost.Create<Startup>(args)
                 .UserRabbitMq()
                 .SubscribeToEvent<ActivityCreated>()
+                .SubscribeToEvent<UserCreated>()
                 .Build()
                 .Run();
         }
