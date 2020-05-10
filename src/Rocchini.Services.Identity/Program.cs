@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 using Rocchini.Common.Commands;
 using Rocchini.Common.Service;
 

@@ -6,8 +6,6 @@ using Rocchini.Common.Events;
 using Rocchini.Common.Exceptions;
 using Rocchini.Services.Identity.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Rocchini.Services.Identity.Handlers

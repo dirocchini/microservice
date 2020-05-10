@@ -2,7 +2,6 @@
 using Rocchini.Common.Mongo;
 using Rocchini.Services.Activities.Domain.Models;
 using Rocchini.Services.Activities.Domain.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Routing;
-using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
+﻿using MongoDB.Driver;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rocchini.Common.Mongo

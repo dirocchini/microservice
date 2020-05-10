@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Server.IIS.Core;
-using Rocchini.Common.Exceptions;
+﻿using Rocchini.Common.Exceptions;
 using Rocchini.Services.Identity.Domain.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rocchini.Services.Identity.Domain.Models
 {
