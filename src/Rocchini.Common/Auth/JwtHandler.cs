@@ -35,16 +35,16 @@ namespace Rocchini.Common.Auth
         {
             var nowUtc = DateTime.UtcNow;
             var expires = nowUtc.AddMinutes(_options.ExpiryMinutes);
-            var centureBegin = new DateTime(1970, 1, 1).ToUniversalTime();
-            var exp = (long)(new TimeSpan(expires.Ticks - centureBegin.Ticks).TotalSeconds);
-            var now = (long)(new TimeSpan(nowUtc.Ticks - centureBegin.Ticks).TotalSeconds);
+            var centuryBegin = new DateTime(1970, 1, 1);
+            var exp = (long)(new TimeSpan(expires.Ticks - centuryBegin.Ticks).TotalSeconds);
+            var now = (long)(new TimeSpan(nowUtc.Ticks - centuryBegin.Ticks).TotalSeconds);
             var payload = new JwtPayload
             {
-                { "sub", userId},
-                { "iss", _options.Issuer },
-                { "iat", now },
-                {"exp", exp },
-                { "unique_name", userId }
+                {"sub", userId}, // subject
+                {"iss", _options.Issuer},
+                {"iat", now}, // issued at
+                {"exp", exp}, // experiation date
+                {"unique_name", userId} // user within API
             };
             var jwt = new JwtSecurityToken(_jwtHeader, payload);
             var token = _jwtSecurityTokenHandler.WriteToken(jwt);

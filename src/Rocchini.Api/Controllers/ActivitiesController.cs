@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RawRabbit;
 using Rocchini.Common.Commands;
@@ -24,5 +26,9 @@ namespace Rocchini.Api.Controllers
             await _busClient.PublishAsync(command);
             return Accepted($"activities/{command.Id}");
         }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult Get() => Content("Secured!");
     }
 }

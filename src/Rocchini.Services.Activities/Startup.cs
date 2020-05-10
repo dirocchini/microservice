@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rocchini.Common.Auth;
 using Rocchini.Common.Commands;
 using Rocchini.Common.Commands.Interfaces;
 using Rocchini.Common.Mongo;
@@ -29,6 +30,7 @@ namespace Rocchini.Services.Activities
         {
             services.AddControllers();
             services.AddLogging();
+            services.AddJwt(Configuration);
             services.AddMongoDb(Configuration);
             services.AddRabbitMq(Configuration);
             services.AddSingleton<ICommandHandler<CreateActivity>, CreateActivityHandler>();

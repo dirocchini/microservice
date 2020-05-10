@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Rocchini.Api.Handlers;
+using Rocchini.Common.Auth;
 using Rocchini.Common.Events;
 using Rocchini.Common.Events.Interfaces;
 using Rocchini.Common.RabbitMq;
@@ -23,6 +24,8 @@ namespace Rocchini.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddLogging();
+            services.AddJwt(Configuration);
             services.AddRabbitMq(Configuration);
             services.AddSingleton<IEventHandler<ActivityCreated>, ActivityCreatedHandler>();
             services.AddSingleton<IEventHandler<UserCreated>, UserCreatedHandler>();

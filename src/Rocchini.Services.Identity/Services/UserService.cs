@@ -1,4 +1,5 @@
-﻿using Rocchini.Common.Exceptions;
+﻿using Rocchini.Common.Auth;
+using Rocchini.Common.Exceptions;
 using Rocchini.Services.Identity.Domain.Models;
 using Rocchini.Services.Identity.Domain.Repositories;
 using Rocchini.Services.Identity.Domain.Services;
@@ -10,21 +11,24 @@ namespace Rocchini.Services.Identity.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IEncrypter _encrypter;
+        private readonly IJwtHandler _jwtHandler;
 
-        public UserService(IUserRepository userRepository, IEncrypter encrypter)
+        public UserService(IUserRepository userRepository, IEncrypter encrypter, IJwtHandler jwtHandler)
         {
             _userRepository = userRepository;
             _encrypter = encrypter;
+            _jwtHandler = jwtHandler;
         }
-        public async Task LoginAsync(string email, string password)
+        public async Task<JsonWebToken> LoginAsync(string email, string password)
         {
             var user = await _userRepository.GetAsync(email);
-            if (user == null)
+            if (user == null) 
                 throw new RocchiniException("invalid_credentials", $"User does not exist");
 
             if(!user.ValidatePassword(password, _encrypter))
                 throw new RocchiniException("invalid_credentials", $"Invalid password supplied");
 
+            return _jwtHandler.Create(user.Id);
         }
 
         public async Task RegisterAsync(string email, string password, string name)
@@ -37,5 +41,6 @@ namespace Rocchini.Services.Identity.Services
             user.SetPassword(password, _encrypter);
             await _userRepository.AddAsync(user);
         }
+
     }
 }
