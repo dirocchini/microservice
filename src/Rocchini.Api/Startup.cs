@@ -4,9 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Rocchini.Api.Handlers;
+using Rocchini.Api.Repository;
 using Rocchini.Common.Auth;
 using Rocchini.Common.Events;
 using Rocchini.Common.Events.Interfaces;
+using Rocchini.Common.Mongo;
 using Rocchini.Common.RabbitMq;
 
 namespace Rocchini.Api
@@ -27,8 +29,10 @@ namespace Rocchini.Api
             services.AddLogging();
             services.AddJwt(Configuration);
             services.AddRabbitMq(Configuration);
+            services.AddMongoDb(Configuration);
             services.AddSingleton<IEventHandler<ActivityCreated>, ActivityCreatedHandler>();
             services.AddSingleton<IEventHandler<UserCreated>, UserCreatedHandler>();
+            services.AddSingleton<IActivityRepository, ActivityRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
