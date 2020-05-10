@@ -1,4 +1,5 @@
-﻿using Rocchini.Common.Exceptions;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using Rocchini.Common.Exceptions;
 using System;
 
 namespace Rocchini.Services.Activities.Domain.Models
